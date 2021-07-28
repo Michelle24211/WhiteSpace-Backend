@@ -5,10 +5,9 @@ phases:
       nodejs: 12
   pre_build:
     commands:
+     commands:
       - echo Installing source NPM dependencies...
-      - npm update
-      - npm install --production
-      - npm install -g create-react-app@latest
+      - npm install
   build:
     commands:
       - echo Build started on `date`

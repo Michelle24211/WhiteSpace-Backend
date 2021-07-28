@@ -4,7 +4,7 @@ phases:
     runtime-versions:
       nodejs: 12
   pre_build:
-     commands:
+    commands:
       - echo Installing source NPM dependencies...
       - npm install
   build:
@@ -13,7 +13,7 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
-# Include only the files required for your application to run
+# Include only the files required for your application to run.
 artifacts:
   files:
     - public/**/*

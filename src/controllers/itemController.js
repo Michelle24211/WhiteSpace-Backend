@@ -1,22 +1,21 @@
 const multer = require('multer');
-const sharp = require('sharp');
 
 const Item = require('../models/item');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 // Use without image processing
-// const multerStorage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, 'public/img/items');
-//   },
-//   filename: (req, file, cb) => {
-//     //item-filename-timestape.file_extension
-//     const extension = file.mimetype.split('/')[1];
-//     const fileName = file.originalname.split('.')[0];
-//     cb(null, `item-${fileName}-${Date.now()}.${extension}`);
-//   },
-// });
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/img/items');
+  },
+  filename: (req, file, cb) => {
+    //item-filename-timestape.file_extension
+    const extension = file.mimetype.split('/')[1];
+    const fileName = file.originalname.split('.')[0];
+    cb(null, `item-${fileName}-${Date.now()}.${extension}`);
+  },
+});
 
 const multerStorage = multer.memoryStorage();
 
@@ -35,24 +34,24 @@ const upload = multer({
 
 exports.uploadItemPhoto = upload.single('image');
 
-exports.resizeItemPhoto = (req, res, next) => {
-  if (!req.file) {
-    return next();
-  }
+// exports.resizeItemPhoto = (req, res, next) => {
+//   if (!req.file) {
+//     return next();
+//   }
 
-  const filename = req.file.originalname.split('.')[0];
-  req.file.filename = `item-${filename}-${Date.now()}.jpeg`;
+//   const filename = req.file.originalname.split('.')[0];
+//   req.file.filename = `item-${filename}-${Date.now()}.jpeg`;
 
-  sharp(req.file.buffer)
-    .resize(1000, 1000)
-    .toFormat('jpeg')
-    .jpeg({ quality: 90 })
-    .toFile(`public/img/items/${req.file.filename}`);
+//   sharp(req.file.buffer)
+//     .resize(1000, 1000)
+//     .toFormat('jpeg')
+//     .jpeg({ quality: 90 })
+//     .toFile(`public/img/items/${req.file.filename}`);
 
-  req.file.path = `public/img/items/${req.file.filename}`;
+//   req.file.path = `public/img/items/${req.file.filename}`;
 
-  next();
-};
+//   next();
+// };
 
 exports.createItem = catchAsync(async (req, res, next) => {
   const { name, description, price, category } = req.body;

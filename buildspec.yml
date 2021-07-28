@@ -6,7 +6,7 @@ phases:
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
-      - npm install libvips
+      - npm install libvips@latest
       - npm install --only=prod
   build:
     commands:

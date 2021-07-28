@@ -6,7 +6,7 @@ phases:
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
-      - npm install
+      - npm install --only=prod
   build:
     commands:
       - echo Build started on `date`

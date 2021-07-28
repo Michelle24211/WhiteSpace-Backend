@@ -7,11 +7,7 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(
-    itemController.uploadItemPhoto,
-    itemController.resizeItemPhoto,
-    itemController.createItem
-  )
+  .post(itemController.uploadItemPhoto, itemController.createItem)
   .get(itemController.getAllItem);
 
 router

@@ -1,4 +1,4 @@
-//const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const validator = require('validator');
 
@@ -44,22 +44,21 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
 });
 
-// userSchema.pre('save', async function (next) {
-//   if (!this.isModified('password')) {
-//     return next();
-//   }
-//   this.password = await bcrypt.hash(this.password, 12);
-//   // Delete passwordConfirm
-//   this.passwordConfirm = undefined;
-//   next();
-// });
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+  this.password = await bcrypt.hash(this.password, 12);
+  // Delete passwordConfirm
+  this.passwordConfirm = undefined;
+  next();
+});
 
 userSchema.methods.isPasswordCorrect = async function (
   incomingPassword,
   userPassword
 ) {
-  //return await bcrypt.compare(incomingPassword, userPassword);
-  return incomingPassword === userPassword;
+  return await bcrypt.compare(incomingPassword, userPassword);
 };
 
 userSchema.methods.isPasswordChangedAfter = function (jwtTime) {

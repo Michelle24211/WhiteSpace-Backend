@@ -3,9 +3,13 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
-  name: {
+  firstName: {
     type: String,
-    required: [true, 'Please provide a name.'],
+    required: [true, 'Please provide a firstName.'],
+  },
+  lastName: {
+    type: String,
+    required: [true, 'Please provide a lastName.'],
   },
   email: {
     type: String,

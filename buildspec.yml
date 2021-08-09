@@ -2,11 +2,10 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 10
+      nodejs: 14
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
-      - npm install libvips@latest
       - npm install --only=prod
   build:
     commands:

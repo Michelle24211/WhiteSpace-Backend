@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const hpp = require('hpp');
 const morgan = require('morgan');
@@ -11,6 +12,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const itemRoute = require('./routes/itemRoutes');
 const userRoutes = require('./routes/userRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 
 const app = express();
 
@@ -19,7 +21,12 @@ const app = express();
 //Set Security HTTP headers
 app.use(helmet());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CLIENT_SERVER,
+    credentials: true,
+  })
+);
 
 //Development logging
 if (process.env.NODE_ENV === 'development') {
@@ -30,7 +37,7 @@ app.use(express.static('public/img/items'));
 
 //Limit requests from same API
 const limiter = rateLimit({
-  max: 100,
+  max: 10000,
   windowMs: 60 * 60 * 1000,
   message: 'Too many requests from this IP, please try it again in an hour',
 });
@@ -38,6 +45,9 @@ app.use('/api', limiter);
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
+
+// Parse all cookie from incoming request: req.cookies
+app.use(cookieParser());
 
 //Data sanitation against NOSQL query injection
 app.use(mongoSanitize());
@@ -49,6 +59,7 @@ app.use(hpp({ whitelist: ['duration'] }));
 //2)ROUTES
 app.use('/api/v1/item', itemRoute);
 app.use('/api/v1/user', userRoutes);
+app.use('/api/v1/cart', cartRoutes);
 
 app.all('*', (req, res, next) => {
   // res.status(404).json({

@@ -21,4 +21,3 @@ artifacts:
     - server.js
     - package.json
     - node_modules/**/*
-    - config.env

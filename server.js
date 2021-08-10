@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 
 //Global handled synchronous uncaught exception, unclean state
 process.on('uncaughtException', (err) => {
-  console.log('UNCAUGHT EXCEPTION! 🤯 Shutting down...');
+  console.log('UNCAUGHT EXCEPTION! 🤯 Shutting down....');
   console.log(err.name, err.message);
   process.exit(1);
 });

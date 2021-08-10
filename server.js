@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 //Dotenv is a zero-dependency module that loads environment npm variables from a .env file into process.env
-const dotenv = require('dotenv');
+//const dotenv = require('dotenv');
 
 //Global handled synchronous uncaught exception, unclean state
 process.on('uncaughtException', (err) => {
@@ -9,10 +9,7 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-//Local config.env: dotenv.config({ path: './config.env' });
-//Aws CodeBuild env variable
-dotenv.config();
-
+//dotenv.config({ path: './config.env' });
 const app = require('./src/app');
 
 // const DB = process.env.DATABASE.replace(

@@ -17,7 +17,7 @@ const createSendToken = (user, statusCode, res) => {
     ),
     // Cookie cannot be access or modified by browser
     // Browser can only receive, store, and send it along with every request
-    httpOnly: true,
+    //httpOnly: true,
   };
 
   // if (process.env.NODE_ENV === 'production') {

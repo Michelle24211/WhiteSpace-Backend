@@ -12,12 +12,10 @@ process.on('uncaughtException', (err) => {
 //dotenv.config({ path: './config.env' });
 const app = require('./src/app');
 
-// const DB = process.env.DATABASE.replace(
-//   '<PASSWORD>',
-//   process.env.DATABASE_PASSWORD
-// );
-
-const DB = `mongodb+srv://michelle-mongodb:${process.env.DATABASE_PASSWORD}@cluster0.le3nd.mongodb.net/whitespace?retryWrites=true&w=majority`;
+const DB = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD
+);
 
 mongoose
   .connect(DB, {

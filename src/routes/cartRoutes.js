@@ -8,7 +8,10 @@ const router = express.Router();
 router
   .route('/')
   .post(authController.protect, cartController.getCart)
-  .post(authController.protect, cartController.addItemToCart)
   .delete(authController.protect, cartController.deleteItemCart);
+
+router
+  .route('/add-item-cart')
+  .post(authController.protect, cartController.addItemToCart);
 
 module.exports = router;
